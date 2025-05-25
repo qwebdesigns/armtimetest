@@ -1,0 +1,222 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ARM TIME Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+
+    <link rel="stylesheet" href="./styles/form.css">
+    <link rel="stylesheet" href="./styles/animation_form.css">
+    <link rel="stylesheet" href="./styles/main.css">
+</head>
+
+<body class="bg-[#e2e2e2] min-h-screen flex flex-col items-center justify-center p-4">
+    <section id="main" >
+        <h1 class="text-[8vh] font-extrabold text-[#130014] mb-10 header">
+            ARM T<span class="text-[#d30073]">I</span>ME
+        </h1>
+
+        <div class="papa">
+            <form class="form visible" id="register_form">
+                <p class="title">Регистрация</p>
+                <p class="message">Войди, чтобы получить полный доступ.</p>
+                <div class="flex">
+                    <label>
+                        <input required="" placeholder="" type="first_name" class="input" />
+                        <span>Фамилия</span>
+                    </label>
+
+                    <label>
+                        <input required="" placeholder="" type="last_name" class="input" />
+                        <span>Имя</span>
+                    </label>
+                </div>
+
+                <label>
+                    <input required="" placeholder="" type="email" class="input" />
+                    <span>Email</span>
+                </label>
+
+                <label>
+                    <input required="" placeholder="" type="password" class="input" />
+                    <span>Пароль</span>
+                </label>
+                <label>
+                    <input required="" placeholder="" type="password" class="input" />
+                    <span>Повтор пароля</span>
+                </label>
+                <button class="submit" onclick="go_recovery()">Регистрация</button>
+                <p class="signin">Уже есть аккаунт ? <button onclick="visible()">Войти</button></p>
+            </form>
+
+
+            <form class="form hide" id="afrorize_form">
+
+                <p class="title">Вход</p>
+                <p class="message">Войди, чтобы получить полный доступ.</p>
+                <label>
+                    <input required="" placeholder="" type="email" class="input" />
+                    <span>Email</span>
+                </label>
+
+                <label>
+                    <input required="" placeholder="" type="password" class="input" />
+                    <span>Пароль</span>
+                </label>
+                <button class="submit" onclick="go_recovery()">Войти</button>
+                <p class="signin">Ещё нет аккаунта ? <button onclick="visible()">Регистрация</button></p>
+            </form>
+        </div>
+
+    </section>
+
+    <section id="code" class="hf">
+        <h1 class="text-[8vh] font-extrabold text-[#130014] mb-10 header">
+            ARM T<span class="text-[#d30073]">I</span>ME
+        </h1>
+
+        <div class="papa">
+            <form class="form">
+
+                <p class="title">Проверка входа!</p>
+                <p class="message">Код авторизации,<br>был отправлен <span>lazarukdanz@mail.ru</span>.</p>
+                <label>
+                    <input required="" placeholder="" type="password" class="input" />
+                    <span>Секретный код</span>
+                </label>
+                <button class="submit" onclick="go_anketa()">Подтвердить</button>
+                <p class="signin">Ещё нет аккаунта ? <button onclick="visible()">Регистрация</button></p>
+            </form>
+        </div>
+    </section>
+
+    <section id="anketa" class="hf">
+        <h1 class="text-[8vh] font-extrabold text-[#130014] mb-10 header">
+            ARM T<span class="text-[#d30073]">I</span>ME
+        </h1>
+        <div class="papa2">
+            <form class="form" id="recovery_code">
+
+
+
+
+                <p class="title">Анкета</p>
+                <div class="foto">
+                    <img src="https://i.pinimg.com/736x/4c/24/35/4c2435c4d7e5d249e3c54035462321dc.jpg" alt="">
+                    <div class="redact_foto">
+                        🖉
+                    </div>
+                </div>
+                <p class="message_center">Основные данные</p>
+                <label>
+                    <input required="" placeholder="" type="email" class="input" />
+                    <span>Email</span>
+                </label>
+                <div class="flex">
+                    <label>
+                        <input required="" placeholder="" type="first_name" class="input" />
+                        <span>Фамилия</span>
+                    </label>
+
+                    <label>
+                        <input required="" placeholder="" type="last_name" class="input" />
+                        <span>Имя</span>
+                    </label>
+                </div>
+                <p class="message">Баннер в профиле:</p>
+                <input required="" placeholder="" type="file" class="input" />
+                
+
+
+
+
+
+                <p class="message_center">Силовые показатели</p>
+                <p class="message">Борьба: Крюк</p>
+                <label>
+                    <input required="" placeholder="" type="password" class="input" />
+                    <span>Сгибание кисти (Ручка на лямках)</span>
+                </label>
+                <label>
+                    <input required="" placeholder="" type="password" class="input" />
+                    <span>Боковое давление (Верхний блок)</span>
+                </label>
+                <label>
+                    <input required="" placeholder="" type="password" class="input" />
+                    <span>Бицепс (Подъем на бицепс сидя)</span>
+                </label>
+
+
+
+                <p class="message">Борьба: Верх </p>
+                <label>
+                    <input required="" placeholder="" type="password" class="input" />
+                    <span>Подъем на луч (90° с пола)</span>
+                </label>
+                <label>
+                    <input required="" placeholder="" type="password" class="input" />
+                    <span>Пронация (90° с пола)</span>
+                </label>
+                <label>
+                    <input required="" placeholder="" type="password" class="input" />
+                    <span>Отведение (90° с пола)</span>
+                </label>
+
+
+
+
+
+                <p class="message">Борьба: Трицепс </p>
+                <label>
+                    <input required="" placeholder="" type="password" class="input" />
+                    <span>Трицепс (Верхний блок)</span>
+                </label>
+                <label>
+                    <input required="" placeholder="" type="password" class="input" />
+                    <span>Боковое давление (Верхний блок)</span>
+                </label>
+
+
+
+
+
+
+
+                <p class="message_center">Второстепенная информация</p>
+                <label>
+                    <input required="" placeholder="" type="password" class="input" />
+                    <span>@Вконтакте</span>
+                </label>
+                <label>
+                    <input required="" placeholder="" type="password" class="input" />
+                    <span>@Телеграмм</span>
+                </label>
+                <label>
+                    <input required="" placeholder="" type="password" class="input" />
+                    <span>Бицепс (Подъем на бицепс сидя)</span>
+                </label>
+
+
+                <label>
+                    <input required="" placeholder="" type="password" class="input" />
+                    <span>Повтор пароля</span>
+                </label>
+                <button class="submit" onclick="go_main()">Загрузить Анкету</button>
+                <p class="signin">Нужна помощь? <button onclick="visible()">Напиши нам!</button></p>
+            </form>
+        </div>
+    </section>
+    <script src="./scripts/anim.js"></script>
+    <script src="./scripts/form_round.js"></script>
+</body>
+
+</html>

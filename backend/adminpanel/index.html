@@ -1,0 +1,1557 @@
+<html lang="ru">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Admin Panel
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&amp;family=Roboto&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Inter', 'Roboto', sans-serif;
+      background-color: #1E1E2D;
+      color: #FFFFFF;
+    }
+    /* Scrollbar for tables */
+    ::-webkit-scrollbar {
+      height: 8px;
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #2A2A3B;
+      border-radius: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #6C5DD3;
+      border-radius: 8px;
+    }
+  </style>
+ </head>
+ <body class="flex h-screen overflow-hidden select-none">
+  <!-- Sidebar -->
+  <aside class="flex flex-col w-64 bg-[#2A2A3B] shadow-lg rounded-r-[8px] p-6 space-y-8">
+   <div class="flex items-center space-x-3">
+    <img alt="Логотип админ-панели в фиолетовом стиле, буква A" class="rounded-md" height="40" src="./assets/DJ.png" width="40"/>
+    <h1 class="text-white text-2xl font-semibold tracking-wide">
+     Admin
+    </h1>
+   </div>
+   <nav class="flex flex-col space-y-4 text-gray-400 text-sm font-medium">
+    <button class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-[#6C5DD3] hover:text-white transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]" data-page="dashboard">
+     <i class="fas fa-tachometer-alt w-5">
+     </i>
+     <span>
+      Дэшбоард
+     </span>
+    </button>
+    <button class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-[#6C5DD3] hover:text-white transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]" data-page="accounts">
+     <i class="fas fa-users w-5">
+     </i>
+     <span>
+      Аккаунты 
+     </span>
+    </button>
+    <button class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-[#6C5DD3] hover:text-white transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]" data-page="profiles">
+     <i class="fas fa-id-card w-5">
+     </i>
+     <span>
+      Профили
+     </span>
+    </button>
+    <button class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-[#6C5DD3] hover:text-white transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]" data-page="search">
+     <i class="fas fa-search w-5">
+     </i>
+     <span>
+      Поиск
+     </span>
+    </button>
+    <button class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-[#6C5DD3] hover:text-white transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]" data-page="admin">
+     <i class="fas fa-database w-5">
+     </i>
+     <span>
+      Админ
+     </span>
+    </button>
+    <button class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-[#6C5DD3] hover:text-white transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]" data-page="mailing">
+     <i class="fas fa-envelope w-5">
+     </i>
+     <span>
+      Почта
+     </span>
+    </button>
+    <button class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-[#6C5DD3] hover:text-white transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]" data-page="stats">
+     <i class="fas fa-chart-line w-5">
+     </i>
+     <span>
+      Статистика
+     </span>
+    </button>
+   </nav>
+   <div class="mt-auto text-gray-500 text-xs text-center select-text">
+    © 2025 Jarvis v3 Пятница 
+   </div>
+  </aside>
+  <!-- Main content wrapper -->
+  <div class="flex flex-col flex-1 overflow-hidden">
+   <!-- Topbar -->
+   <header class="flex items-center justify-between bg-[#2A2A3B] px-6 py-4 shadow-md rounded-b-[8px]">
+    <div class="flex items-center space-x-4">
+     <button aria-label="Toggle sidebar" class="text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-[#6C5DD3] rounded-md" id="sidebarToggle">
+      <i class="fas fa-bars fa-lg">
+      </i>
+     </button>
+     <h2 class="text-white text-xl font-semibold tracking-wide" id="pageTitle">
+      Дэшбоард
+     </h2>
+    </div>
+    <div class="flex items-center space-x-6">
+     <button aria-label="Уведомления" class="relative text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-[#6C5DD3] rounded-md">
+      <i class="fas fa-bell fa-lg">
+      </i>
+      <span class="absolute -top-1 -right-1 bg-[#6C5DD3] text-white text-xs rounded-full px-1.5">
+       0
+      </span>
+     </button>
+     <button aria-label="Профиль пользователя" class="flex items-center space-x-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-[#6C5DD3] rounded-md">
+      <img alt="Аватар" class="rounded-full" height="32"
+        src="https://sun9-32.userapi.com/impg/wbfbwlUjAfWnuJg28zDHiKm6MMUa_nFb2gWChQ/yrMaOYTZGtg.jpg?size=735x733&quality=95&sign=7743f30b10f71f4a4d4e64f807e9430c&type=album"
+        width="32" />
+      <span class="hidden sm:block font-medium">
+       Админ
+      </span>
+      <i class="fas fa-chevron-down text-xs">
+      </i>
+     </button>
+    </div>
+   </header>
+   <!-- Content area -->
+   <main class="flex-1 overflow-auto p-6 bg-[#1E1E2D] text-white" id="content" tabindex="0">
+    <!-- Dashboard Page -->
+    <section class="space-y-8" id="dashboard">
+     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="bg-[#2A2A3B] rounded-[8px] p-6 shadow-md flex items-center space-x-4 hover:shadow-lg transition-shadow duration-300">
+       <div class="bg-[#6C5DD3] p-3 rounded-lg flex items-center justify-center text-white">
+        <i class="fas fa-users fa-2x">
+        </i>
+       </div>
+       <div>
+        <p class="text-gray-400 text-sm">
+         Количество пользователей
+        </p>
+        <p class="text-white text-2xl font-semibold">
+         0
+        </p>
+       </div>
+      </div>
+      <div class="bg-[#2A2A3B] rounded-[8px] p-6 shadow-md flex items-center space-x-4 hover:shadow-lg transition-shadow duration-300">
+       <div class="bg-[#6C5DD3] p-3 rounded-lg flex items-center justify-center text-white">
+        <i class="fas fa-user-clock fa-2x">
+        </i>
+       </div>
+       <div>
+        <p class="text-gray-400 text-sm">
+         Онлайн пользователи
+        </p>
+        <p class="text-white text-2xl font-semibold">
+         0
+        </p>
+       </div>
+      </div>
+      <div class="bg-[#2A2A3B] rounded-[8px] p-6 shadow-md flex items-center space-x-4 hover:shadow-lg transition-shadow duration-300">
+       <div class="bg-[#6C5DD3] p-3 rounded-lg flex items-center justify-center text-white">
+        <i class="fas fa-user-check fa-2x">
+        </i>
+       </div>
+       <div>
+        <p class="text-gray-400 text-sm">
+         Активные профили
+        </p>
+        <p class="text-white text-2xl font-semibold">
+         0
+        </p>
+       </div>
+      </div>
+      <div class="bg-[#2A2A3B] rounded-[8px] p-6 shadow-md flex items-center space-x-4 hover:shadow-lg transition-shadow duration-300">
+       <div class="bg-[#6C5DD3] p-3 rounded-lg flex items-center justify-center text-white">
+        <i class="fas fa-envelope-open-text fa-2x">
+        </i>
+       </div>
+       <div>
+        <p class="text-gray-400 text-sm">
+         Отправленные письма
+        </p>
+        <p class="text-white text-2xl font-semibold">
+         0
+        </p>
+       </div>
+      </div>
+     </div>
+     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="bg-[#2A2A3B] rounded-[8px] p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+       <h3 class="text-white font-semibold mb-4">
+        Активность онлайн пользователей
+       </h3>
+       <svg aria-label="Линейный график активности онлайн пользователей с фиолетовым градиентом" class="w-full h-40" fill="none" viewbox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+         <lineargradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+          <stop stop-color="#6C5DD3" stop-opacity="0.7">
+          </stop>
+          <stop offset="100%" stop-color="#6C5DD3" stop-opacity="0">
+          </stop>
+         </lineargradient>
+        </defs>
+        <path d="M0 120 L40 100 L80 110 L120 90 L160 100 L200 80 L240 90 L280 70 L320 80 L360 60 L400 70" fill="url(#gradient)" fill-opacity="0.3" stroke="#6C5DD3" stroke-width="3">
+        </path>
+        <path d="M0 120 L40 100 L80 110 L120 90 L160 100 L200 80 L240 90 L280 70 L320 80 L360 60 L400 70" fill="none" stroke="#6C5DD3" stroke-width="3">
+        </path>
+        <circle cx="40" cy="100" fill="#6C5DD3" r="4">
+        </circle>
+        <circle cx="120" cy="90" fill="#6C5DD3" r="4">
+        </circle>
+        <circle cx="200" cy="80" fill="#6C5DD3" r="4">
+        </circle>
+        <circle cx="280" cy="70" fill="#6C5DD3" r="4">
+        </circle>
+        <circle cx="360" cy="60" fill="#6C5DD3" r="4">
+        </circle>
+       </svg>
+      </div>
+      <div class="bg-[#2A2A3B] rounded-[8px] p-6 shadow-md hover:shadow-lg transition-shadow duration-300 lg:col-span-2">
+       <h3 class="text-white font-semibold mb-4">
+        Лента логов действий
+       </h3>
+       <ul class="divide-y divide-gray-700 max-h-40 overflow-y-auto">
+        <li class="py-2 flex items-center space-x-3 hover:bg-[#3B3B5A] rounded-md px-2 transition-colors duration-200 cursor-default">
+         <i class="fas fa-user-check text-[#6C5DD3] w-5">
+         </i>
+         <span class="text-gray-400 text-sm flex-1 truncate">
+          Пользователь user1@example.com вошёл в систему
+         </span>
+         <time class="text-gray-500 text-xs whitespace-nowrap">
+          10:15
+         </time>
+        </li>
+        <li class="py-2 flex items-center space-x-3 hover:bg-[#3B3B5A] rounded-md px-2 transition-colors duration-200 cursor-default">
+         <i class="fas fa-envelope text-[#6C5DD3] w-5">
+         </i>
+         <span class="text-gray-400 text-sm flex-1 truncate">
+          Отправлено письмо пользователю user2@example.com
+         </span>
+         <time class="text-gray-500 text-xs whitespace-nowrap">
+          10:10
+         </time>
+        </li>
+        <li class="py-2 flex items-center space-x-3 hover:bg-[#3B3B5A] rounded-md px-2 transition-colors duration-200 cursor-default">
+         <i class="fas fa-user-edit text-[#6C5DD3] w-5">
+         </i>
+         <span class="text-gray-400 text-sm flex-1 truncate">
+          Профиль user3 обновлён
+         </span>
+         <time class="text-gray-500 text-xs whitespace-nowrap">
+          10:05
+         </time>
+        </li>
+        <li class="py-2 flex items-center space-x-3 hover:bg-[#3B3B5A] rounded-md px-2 transition-colors duration-200 cursor-default">
+         <i class="fas fa-user-plus text-[#6C5DD3] w-5">
+         </i>
+         <span class="text-gray-400 text-sm flex-1 truncate">
+          Новый пользователь user4@example.com зарегистрирован
+         </span>
+         <time class="text-gray-500 text-xs whitespace-nowrap">
+          10:00
+         </time>
+        </li>
+        <li class="py-2 flex items-center space-x-3 hover:bg-[#3B3B5A] rounded-md px-2 transition-colors duration-200 cursor-default">
+         <i class="fas fa-lock text-[#6C5DD3] w-5">
+         </i>
+         <span class="text-gray-400 text-sm flex-1 truncate">
+          Пароль пользователя user5 изменён
+         </span>
+         <time class="text-gray-500 text-xs whitespace-nowrap">
+          09:55
+         </time>
+        </li>
+        <li class="py-2 flex items-center space-x-3 hover:bg-[#3B3B5A] rounded-md px-2 transition-colors duration-200 cursor-default">
+         <i class="fas fa-sign-out-alt text-[#6C5DD3] w-5">
+         </i>
+         <span class="text-gray-400 text-sm flex-1 truncate">
+          Пользователь user6 вышел из системы
+         </span>
+         <time class="text-gray-500 text-xs whitespace-nowrap">
+          09:50
+         </time>
+        </li>
+        <li class="py-2 flex items-center space-x-3 hover:bg-[#3B3B5A] rounded-md px-2 transition-colors duration-200 cursor-default">
+         <i class="fas fa-user-check text-[#6C5DD3] w-5">
+         </i>
+         <span class="text-gray-400 text-sm flex-1 truncate">
+          Пользователь user7@example.com вошёл в систему
+         </span>
+         <time class="text-gray-500 text-xs whitespace-nowrap">
+          09:45
+         </time>
+        </li>
+        <li class="py-2 flex items-center space-x-3 hover:bg-[#3B3B5A] rounded-md px-2 transition-colors duration-200 cursor-default">
+         <i class="fas fa-envelope text-[#6C5DD3] w-5">
+         </i>
+         <span class="text-gray-400 text-sm flex-1 truncate">
+          Отправлено письмо пользователю user8@example.com
+         </span>
+         <time class="text-gray-500 text-xs whitespace-nowrap">
+          09:40
+         </time>
+        </li>
+        <li class="py-2 flex items-center space-x-3 hover:bg-[#3B3B5A] rounded-md px-2 transition-colors duration-200 cursor-default">
+         <i class="fas fa-user-edit text-[#6C5DD3] w-5">
+         </i>
+         <span class="text-gray-400 text-sm flex-1 truncate">
+          Профиль user9 обновлён
+         </span>
+         <time class="text-gray-500 text-xs whitespace-nowrap">
+          09:35
+         </time>
+        </li>
+        <li class="py-2 flex items-center space-x-3 hover:bg-[#3B3B5A] rounded-md px-2 transition-colors duration-200 cursor-default">
+         <i class="fas fa-user-plus text-[#6C5DD3] w-5">
+         </i>
+         <span class="text-gray-400 text-sm flex-1 truncate">
+          Новый пользователь user10@example.com зарегистрирован
+         </span>
+         <time class="text-gray-500 text-xs whitespace-nowrap">
+          09:30
+         </time>
+        </li>
+       </ul>
+      </div>
+     </div>
+    </section>
+    <!-- Accounts Page -->
+    <section class="hidden flex flex-col space-y-6" id="accounts">
+     <form class="flex space-x-3 max-w-md">
+      <input class="flex-1 rounded-[8px] bg-[#2A2A3B] border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]" placeholder="Поиск аккаунтов..." type="text"/>
+      <button class="bg-[#6C5DD3] hover:bg-[#5848b0] transition-colors duration-300 rounded-[8px] px-6 py-2 font-semibold" type="submit">
+       Поиск
+      </button>
+     </form>
+     <!--<div class="overflow-x-auto rounded-[8px] shadow-md">
+      <table class="min-w-full divide-y divide-gray-700">
+       <thead class="bg-[#2A2A3B]">
+        <tr>
+         <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none" scope="col">
+          Email
+         </th>
+         <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none" scope="col">
+          Статус верификации
+         </th>
+         <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none" scope="col">
+          Дата регистрации
+         </th>
+         <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none" scope="col">
+          Последний визит
+         </th>
+         <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none" scope="col">
+          Последнее изменение пароля
+         </th>
+         <th class="relative px-6 py-3" scope="col">
+          <span class="sr-only">
+           Действия
+          </span>
+         </th>
+        </tr>
+       </thead>
+       <tbody class="divide-y divide-gray-700 max-h-96 overflow-y-auto block">
+        <tr class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer flex w-full">
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-white truncate">
+          user1@example.com
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          Верифицирован
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2023-12-01
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2024-06-10 10:15
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2024-05-20
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+          <button aria-label="Открыть аккаунт user1" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-folder-open">
+           </i>
+          </button>
+          <button aria-label="Открыть профиль user1" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-id-card">
+           </i>
+          </button>
+          <button aria-label="Перейти на сайт user1" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-external-link-alt">
+           </i>
+          </button>
+         </td>
+        </tr>
+        <tr class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer flex w-full">
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-white truncate">
+          user2@example.com
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          Не верифицирован
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2023-11-15
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2024-06-09 09:45
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2024-04-10
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+          <button aria-label="Открыть аккаунт user2" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-folder-open">
+           </i>
+          </button>
+          <button aria-label="Открыть профиль user2" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-id-card">
+           </i>
+          </button>
+          <button aria-label="Перейти на сайт user2" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-external-link-alt">
+           </i>
+          </button>
+         </td>
+        </tr>
+        <tr class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer flex w-full">
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-white truncate">
+          user3@example.com
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          Верифицирован
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2023-10-20
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2024-06-08 14:30
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2024-05-01
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+          <button aria-label="Открыть аккаунт user3" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-folder-open">
+           </i>
+          </button>
+          <button aria-label="Открыть профиль user3" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-id-card">
+           </i>
+          </button>
+          <button aria-label="Перейти на сайт user3" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-external-link-alt">
+           </i>
+          </button>
+         </td>
+        </tr>
+        <tr class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer flex w-full">
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-white truncate">
+          user4@example.com
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          Верифицирован
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2023-09-05
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2024-06-07 11:20
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2024-05-15
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+          <button aria-label="Открыть аккаунт user4" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-folder-open">
+           </i>
+          </button>
+          <button aria-label="Открыть профиль user4" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-id-card">
+           </i>
+          </button>
+          <button aria-label="Перейти на сайт user4" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-external-link-alt">
+           </i>
+          </button>
+         </td>
+        </tr>
+        <tr class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer flex w-full">
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-white truncate">
+          user5@example.com
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          Не верифицирован
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2023-08-22
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2024-06-06 16:45
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2024-05-10
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+          <button aria-label="Открыть аккаунт user5" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-folder-open">
+           </i>
+          </button>
+          <button aria-label="Открыть профиль user5" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-id-card">
+           </i>
+          </button>
+          <button aria-label="Перейти на сайт user5" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-external-link-alt">
+           </i>
+          </button>
+         </td>
+        </tr>
+        <tr class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer flex w-full">
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-white truncate">
+          user6@example.com
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          Верифицирован
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2023-07-30
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2024-06-05 12:00
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2024-04-25
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+          <button aria-label="Открыть аккаунт user6" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-folder-open">
+           </i>
+          </button>
+          <button aria-label="Открыть профиль user6" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-id-card">
+           </i>
+          </button>
+          <button aria-label="Перейти на сайт user6" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-external-link-alt">
+           </i>
+          </button>
+         </td>
+        </tr>
+        <tr class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer flex w-full">
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-white truncate">
+          user7@example.com
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          Верифицирован
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2023-06-18
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2024-06-04 08:30
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2024-05-05
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+          <button aria-label="Открыть аккаунт user7" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-folder-open">
+           </i>
+          </button>
+          <button aria-label="Открыть профиль user7" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-id-card">
+           </i>
+          </button>
+          <button aria-label="Перейти на сайт user7" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-external-link-alt">
+           </i>
+          </button>
+         </td>
+        </tr>
+        <tr class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer flex w-full">
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-white truncate">
+          user8@example.com
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          Не верифицирован
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2023-05-10
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2024-06-03 15:10
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2024-04-15
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+          <button aria-label="Открыть аккаунт user8" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-folder-open">
+           </i>
+          </button>
+          <button aria-label="Открыть профиль user8" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-id-card">
+           </i>
+          </button>
+          <button aria-label="Перейти на сайт user8" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-external-link-alt">
+           </i>
+          </button>
+         </td>
+        </tr>
+        <tr class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer flex w-full">
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-white truncate">
+          user9@example.com
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          Верифицирован
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2023-04-01
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2024-06-02 13:25
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2024-05-01
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+          <button aria-label="Открыть аккаунт user9" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-folder-open">
+           </i>
+          </button>
+          <button aria-label="Открыть профиль user9" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-id-card">
+           </i>
+          </button>
+          <button aria-label="Перейти на сайт user9" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-external-link-alt">
+           </i>
+          </button>
+         </td>
+        </tr>
+        <tr class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer flex w-full">
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-white truncate">
+          user10@example.com
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          Верифицирован
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2023-03-15
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2024-06-01 17:50
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+          2024-05-20
+         </td>
+         <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+          <button aria-label="Открыть аккаунт user10" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-folder-open">
+           </i>
+          </button>
+          <button aria-label="Открыть профиль user10" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-id-card">
+           </i>
+          </button>
+          <button aria-label="Перейти на сайт user10" class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+           <i class="fas fa-external-link-alt">
+           </i>
+          </button>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>-->
+     <div class="overflow-x-auto rounded-[8px] shadow-md max-h-screen">
+       <table class="min-w-full divide-y divide-gray-700">
+         <thead class="bg-[#2A2A3B] sticky top-0">
+           <tr>
+             <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none">
+               Email</th>
+             <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none">
+               Статус верификации</th>
+             <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none">Дата
+               регистрации</th>
+             <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none">
+               Последний визит</th>
+             <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none">
+               Последнее изменение пароля</th>
+             <th class="relative px-6 py-3"><span class="sr-only">Действия</span></th>
+           </tr>
+         </thead>
+         <tbody class="divide-y divide-gray-700">
+          <tr
+            class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer">
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-white truncate">
+              user1@example.com
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              Верифицирован
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2023-12-01
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2024-06-10 10:15
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2024-05-20
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+              <button aria-label="Открыть аккаунт user1"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-folder-open">
+                </i>
+              </button>
+              <button aria-label="Открыть профиль user1"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-id-card">
+                </i>
+              </button>
+              <button aria-label="Перейти на сайт user1"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-external-link-alt">
+                </i>
+              </button>
+            </td>
+          </tr>
+          <tr
+            class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer ">
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-white truncate">
+              user2@example.com
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              Не верифицирован
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2023-11-15
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2024-06-09 09:45
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2024-04-10
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+              <button aria-label="Открыть аккаунт user2"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-folder-open">
+                </i>
+              </button>
+              <button aria-label="Открыть профиль user2"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-id-card">
+                </i>
+              </button>
+              <button aria-label="Перейти на сайт user2"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-external-link-alt">
+                </i>
+              </button>
+            </td>
+          </tr>
+          <tr
+            class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer">
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-white truncate">
+              user3@example.com
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              Верифицирован
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2023-10-20
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2024-06-08 14:30
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2024-05-01
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+              <button aria-label="Открыть аккаунт user3"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-folder-open">
+                </i>
+              </button>
+              <button aria-label="Открыть профиль user3"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-id-card">
+                </i>
+              </button>
+              <button aria-label="Перейти на сайт user3"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-external-link-alt">
+                </i>
+              </button>
+            </td>
+          </tr>
+          <tr
+            class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer ">
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-white truncate">
+              user4@example.com
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              Верифицирован
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2023-09-05
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2024-06-07 11:20
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2024-05-15
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+              <button aria-label="Открыть аккаунт user4"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-folder-open">
+                </i>
+              </button>
+              <button aria-label="Открыть профиль user4"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-id-card">
+                </i>
+              </button>
+              <button aria-label="Перейти на сайт user4"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-external-link-alt">
+                </i>
+              </button>
+            </td>
+          </tr>
+          <tr
+            class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer ">
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-white truncate">
+              user5@example.com
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              Не верифицирован
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2023-08-22
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2024-06-06 16:45
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2024-05-10
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+              <button aria-label="Открыть аккаунт user5"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-folder-open">
+                </i>
+              </button>
+              <button aria-label="Открыть профиль user5"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-id-card">
+                </i>
+              </button>
+              <button aria-label="Перейти на сайт user5"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-external-link-alt">
+                </i>
+              </button>
+            </td>
+          </tr>
+          <tr
+            class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer ">
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-white truncate">
+              user6@example.com
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              Верифицирован
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2023-07-30
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2024-06-05 12:00
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2024-04-25
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+              <button aria-label="Открыть аккаунт user6"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-folder-open">
+                </i>
+              </button>
+              <button aria-label="Открыть профиль user6"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-id-card">
+                </i>
+              </button>
+              <button aria-label="Перейти на сайт user6"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-external-link-alt">
+                </i>
+              </button>
+            </td>
+          </tr>
+          <tr
+            class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer ">
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-white truncate">
+              user7@example.com
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              Верифицирован
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2023-06-18
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2024-06-04 08:30
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2024-05-05
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+              <button aria-label="Открыть аккаунт user7"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-folder-open">
+                </i>
+              </button>
+              <button aria-label="Открыть профиль user7"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-id-card">
+                </i>
+              </button>
+              <button aria-label="Перейти на сайт user7"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-external-link-alt">
+                </i>
+              </button>
+            </td>
+          </tr>
+          <tr
+            class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer ">
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-white truncate">
+              user8@example.com
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              Не верифицирован
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2023-05-10
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2024-06-03 15:10
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2024-04-15
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+              <button aria-label="Открыть аккаунт user8"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-folder-open">
+                </i>
+              </button>
+              <button aria-label="Открыть профиль user8"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-id-card">
+                </i>
+              </button>
+              <button aria-label="Перейти на сайт user8"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-external-link-alt">
+                </i>
+              </button>
+            </td>
+          </tr>
+          <tr
+            class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer ">
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-white truncate">
+              user9@example.com
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              Верифицирован
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2023-04-01
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2024-06-02 13:25
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2024-05-01
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+              <button aria-label="Открыть аккаунт user9"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-folder-open">
+                </i>
+              </button>
+              <button aria-label="Открыть профиль user9"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-id-card">
+                </i>
+              </button>
+              <button aria-label="Перейти на сайт user9"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-external-link-alt">
+                </i>
+              </button>
+            </td>
+          </tr>
+          <tr
+            class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer ">
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-white truncate">
+              user10@example.com
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              Верифицирован
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2023-03-15
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2024-06-01 17:50
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex-1 text-sm text-gray-400">
+              2024-05-20
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+              <button aria-label="Открыть аккаунт user10"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-folder-open">
+                </i>
+              </button>
+              <button aria-label="Открыть профиль user10"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-id-card">
+                </i>
+              </button>
+              <button aria-label="Перейти на сайт user10"
+                class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                <i class="fas fa-external-link-alt">
+                </i>
+              </button>
+            </td>
+          </tr>
+         </tbody>
+       </table>
+     </div>
+    </section>
+    <!-- Profiles Page -->
+    <section class="hidden flex flex-col space-y-6" id="profiles">
+     <form class="flex space-x-3 max-w-2xl">
+      <input class="flex-1 rounded-[8px] bg-[#2A2A3B] border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]" placeholder="Поиск по имени, фамилии или email..." type="text"/>
+      <button class="bg-[#6C5DD3] hover:bg-[#5848b0] transition-colors duration-300 rounded-[8px] px-6 py-2 font-semibold" type="submit">
+       Поиск
+      </button>
+     </form>
+     <div class="overflow-scroll rounded-[8px] shadow-md max-h-screen">
+       <table class="min-w-full divide-y divide-gray-700 h-full">
+         <thead class="bg-[#2A2A3B] sticky top-0">
+           <tr>
+             <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none">Имя
+               Фамилия</th>
+             <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none">
+               Email</th>
+             <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none">
+               Видимость профиля</th>
+             <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none">Тип
+               профиля</th>
+             <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none">Тип
+               участника</th>
+           </tr>
+         </thead>
+         <tbody class="divide-y divide-gray-700">
+           <tr class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer">
+             <td class="px-6 py-4 whitespace-nowrap text-sm text-white truncate">Иван Иванов</td>
+             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400 truncate">ivan.ivanov@example.com</td>
+             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">Публичный</td>
+             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">Стандартный</td>
+             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">Участник</td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Left column -->
+      <div class="bg-[#2A2A3B] rounded-[8px] p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+       <div class="flex flex-col items-center space-y-4">
+        <img alt="Аватар пользователя Иван Иванов, синие и фиолетовые оттенки, буквы И И" class="rounded-full" height="120" src="https://storage.googleapis.com/a1aa/image/14f9205c-8bfd-4bcd-68db-d40f07865742.jpg" width="120"/>
+        <h3 class="text-white text-xl font-semibold">
+         Иван Иванов
+        </h3>
+        <p class="text-gray-400 truncate max-w-full">
+         ivan.ivanov@example.com
+        </p>
+        <p class="text-white font-semibold text-lg">
+         Финальный балл: 87
+        </p>
+       </div>
+       <form class="mt-6 space-y-6">
+        <div>
+         <label class="block text-gray-400 text-sm font-medium mb-1" for="profileType">
+          Тип профиля
+         </label>
+         <select class="w-full rounded-[8px] bg-[#1E1E2D] border border-gray-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]" id="profileType">
+          <option>
+           Стандартный
+          </option>
+          <option>
+           Премиум
+          </option>
+          <option>
+           Администратор
+          </option>
+         </select>
+        </div>
+        <div class="flex items-center justify-between">
+         <label class="text-gray-400 text-sm font-medium" for="visibilityToggle">
+          Видимость профиля
+         </label>
+         <div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+          <input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-transparent appearance-none cursor-pointer" id="visibilityToggle" name="visibilityToggle" type="checkbox"/>
+          <label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-600 cursor-pointer" for="visibilityToggle">
+          </label>
+         </div>
+        </div>
+        <div>
+         <label class="block text-gray-400 text-sm font-medium mb-1" for="profileCardColor">
+          Карточка профиля (цвет)
+         </label>
+         <input class="w-full h-10 rounded-[8px] border border-gray-700 cursor-pointer" id="profileCardColor" name="profileCardColor" type="color" value="#6C5DD3"/>
+        </div>
+        <div>
+         <label class="block text-gray-400 text-sm font-medium mb-1" for="participantType">
+          Тип участника
+         </label>
+         <select class="w-full rounded-[8px] bg-[#1E1E2D] border border-gray-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]" id="participantType">
+          <option>
+           Участник
+          </option>
+          <option>
+           Модератор
+          </option>
+          <option>
+           Администратор
+          </option>
+         </select>
+        </div>
+       </form>
+      </div>
+      <!-- Right column -->
+      <div class="bg-[#2A2A3B] rounded-[8px] p-6 shadow-md hover:shadow-lg transition-shadow duration-300 overflow-x-auto">
+       <h3 class="text-white font-semibold mb-4">
+        Характеристики
+       </h3>
+       <table class="min-w-full divide-y divide-gray-700">
+        <thead>
+         <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none">
+           Характеристика
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none">
+           Значение
+          </th>
+         </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-700">
+         <tr class="bg-[#1E1E2D] odd:bg-[#2A2A3B]">
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-white">
+           Крюк
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+           <input class="w-full rounded-[8px] bg-[#1E1E2D] border border-gray-700 px-3 py-1 text-white focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]" type="text" value="15"/>
+          </td>
+         </tr>
+         <tr class="bg-[#1E1E2D] odd:bg-[#2A2A3B]">
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-white">
+           Верх
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+           <input class="w-full rounded-[8px] bg-[#1E1E2D] border border-gray-700 px-3 py-1 text-white focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]" type="text" value="20"/>
+          </td>
+         </tr>
+         <tr class="bg-[#1E1E2D] odd:bg-[#2A2A3B]">
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-white">
+           Трицепс
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+           <input class="w-full rounded-[8px] bg-[#1E1E2D] border border-gray-700 px-3 py-1 text-white focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]" type="text" value="18"/>
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </div>
+    </section>
+    <!-- Search Page -->
+    <section class="hidden flex flex-col space-y-6" id="search">
+     <form class="flex flex-wrap gap-3 max-w-3xl items-center">
+      <input class="flex-1 min-w-[200px] rounded-[8px] bg-[#2A2A3B] border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]" placeholder="Поиск пользователей..." type="text"/>
+      <select class="rounded-[8px] bg-[#2A2A3B] border border-gray-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]">
+       <option>
+        Фильтр: Все
+       </option>
+       <option>
+        Верифицированные
+       </option>
+       <option>
+        Не верифицированные
+       </option>
+       <option>
+        Активные
+       </option>
+       <option>
+        Неактивные
+       </option>
+      </select>
+      <button class="bg-[#6C5DD3] hover:bg-[#5848b0] transition-colors duration-300 rounded-[8px] px-6 py-2 font-semibold" type="submit">
+       Найти
+      </button>
+     </form>
+     <div class="overflow-x-auto rounded-[8px] shadow-md max-h-96">
+       <table class="min-w-full divide-y divide-gray-700">
+         <thead class="bg-[#2A2A3B] sticky top-0">
+           <tr>
+             <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none">Имя
+               Фамилия</th>
+             <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none">
+               Email</th>
+             <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none">
+               Статус</th>
+             <th class="relative px-6 py-3"><span class="sr-only">Действия</span></th>
+           </tr>
+         </thead>
+         <tbody class="divide-y divide-gray-700">
+           <tr class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer">
+             <td class="px-6 py-4 whitespace-nowrap text-sm text-white truncate">Иван Иванов</td>
+             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400 truncate">ivan.ivanov@example.com</td>
+             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">Верифицирован</td>
+             <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+               <button aria-label="Открыть аккаунт Иван Иванов"
+                 class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                 <i class="fas fa-folder-open"></i>
+               </button>
+               <button aria-label="Открыть профиль Иван Иванов"
+                 class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                 <i class="fas fa-id-card"></i>
+               </button>
+               <button aria-label="Перейти на сайт Иван Иванов"
+                 class="text-[#6C5DD3] hover:text-[#5848b0] transition-colors duration-300">
+                 <i class="fas fa-external-link-alt"></i>
+               </button>
+             </td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+    </section>
+    <!-- Admin Page -->
+    <section class="hidden flex flex-col space-y-6 max-w-4xl" id="admin">
+      <div class="overflow-x-auto rounded-[8px] shadow-md max-h-96">
+        <table class="min-w-full divide-y divide-gray-700">
+          <thead class="bg-[#2A2A3B] sticky top-0">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none">SQL
+                команда</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none">
+                Описание</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-700">
+            <tr class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-white">
+                <input
+                  class="w-full rounded-[8px] bg-[#1E1E2D] border border-gray-700 px-3 py-1 text-white focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]"
+                  type="text" value="SELECT * FROM users;" />
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">Получить всех пользователей</td>
+            </tr>
+            <tr class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-white">
+                <input
+                  class="w-full rounded-[8px] bg-[#1E1E2D] border border-gray-700 px-3 py-1 text-white focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]"
+                  type="text" value="DELETE FROM logs WHERE date < '2023-01-01';" />
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">Удалить старые логи</td>
+            </tr>
+            <tr class="bg-[#1E1E2D] odd:bg-[#2A2A3B] hover:bg-[#3B3B5A] transition-colors duration-200 cursor-pointer">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-white">
+                <input
+                  class="w-full rounded-[8px] bg-[#1E1E2D] border border-gray-700 px-3 py-1 text-white focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]"
+                  type="text" value="UPDATE users SET status='active' WHERE last_login > NOW() - INTERVAL '30 days';" />
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">Активировать пользователей с недавним входом
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+     <div class="flex space-x-6 mt-4">
+      <button class="flex-1 bg-red-600 hover:bg-red-700 transition-colors duration-300 rounded-[8px] py-3 font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-red-500">
+       Открыть базу данных
+      </button>
+      <button class="flex-1 bg-blue-600 hover:bg-blue-700 transition-colors duration-300 rounded-[8px] py-3 font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+       Открыть почту
+      </button>
+     </div>
+    </section>
+    <!-- Mailing Page -->
+    <section class="hidden flex flex-col space-y-6 max-w-4xl" id="mailing">
+     <form class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div>
+       <label class="block text-gray-400 text-sm font-medium mb-1" for="mailType">
+        Тип письма
+       </label>
+       <select class="w-full rounded-[8px] bg-[#2A2A3B] border border-gray-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]" id="mailType">
+        <option>
+         Информационное
+        </option>
+        <option>
+         Рекламное
+        </option>
+        <option>
+         Техническое
+        </option>
+       </select>
+      </div>
+      <div>
+       <label class="block text-gray-400 text-sm font-medium mb-1" for="mailTemplate">
+        Шаблон письма
+       </label>
+       <select class="w-full rounded-[8px] bg-[#2A2A3B] border border-gray-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]" id="mailTemplate">
+        <option value="&lt;h1&gt;Добро пожаловать!&lt;/h1&gt;&lt;p&gt;Спасибо за регистрацию.&lt;/p&gt;">
+         Приветствие
+        </option>
+        <option value="&lt;h1&gt;Акция!&lt;/h1&gt;&lt;p&gt;Скидка 20% на все товары.&lt;/p&gt;">
+         Акция
+        </option>
+        <option value="&lt;h1&gt;Обновление системы&lt;/h1&gt;&lt;p&gt;Плановое техническое обслуживание.&lt;/p&gt;">
+         Техническое уведомление
+        </option>
+       </select>
+      </div>
+     </form>
+     <form class="space-y-4 mt-4">
+      <div>
+       <label class="block text-gray-400 text-sm font-medium mb-1" for="recipientEmail">
+        Email получателя
+       </label>
+       <input class="w-full rounded-[8px] bg-[#2A2A3B] border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]" id="recipientEmail" placeholder="example@example.com" type="email"/>
+      </div>
+      <div>
+       <label class="block text-gray-400 text-sm font-medium mb-1" for="mailSubject">
+        Тема письма
+       </label>
+       <input class="w-full rounded-[8px] bg-[#2A2A3B] border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6C5DD3]" id="mailSubject" placeholder="Тема письма" type="text"/>
+      </div>
+      <div>
+       <label class="block text-gray-400 text-sm font-medium mb-1" for="mailHtml">
+        HTML редактор письма
+       </label>
+       <textarea class="w-full rounded-[8px] bg-[#2A2A3B] border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6C5DD3] font-mono resize-none" id="mailHtml" rows="8"></textarea>
+      </div>
+      <button class="bg-[#6C5DD3] hover:bg-[#5848b0] transition-colors duration-300 rounded-[8px] px-6 py-3 font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-[#6C5DD3] animate-pulse" type="submit">
+       Отправить письмо
+      </button>
+     </form>
+    </section>
+    <!-- Stats Page -->
+    <section class="hidden space-y-8" id="stats">
+     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="bg-[#2A2A3B] rounded-[8px] p-6 shadow-md flex items-center space-x-4 hover:shadow-lg transition-shadow duration-300 cursor-pointer" data-page="accounts">
+       <div class="bg-[#6C5DD3] p-3 rounded-lg flex items-center justify-center text-white">
+        <i class="fas fa-users fa-2x">
+        </i>
+       </div>
+       <div>
+        <p class="text-gray-400 text-sm">
+         Количество пользователей
+        </p>
+        <p class="text-white text-2xl font-semibold">
+         12,345
+        </p>
+       </div>
+      </div>
+      <div class="bg-[#2A2A3B] rounded-[8px] p-6 shadow-md flex items-center space-x-4 hover:shadow-lg transition-shadow duration-300 cursor-pointer" data-page="dashboard">
+       <div class="bg-[#6C5DD3] p-3 rounded-lg flex items-center justify-center text-white">
+        <i class="fas fa-user-clock fa-2x">
+        </i>
+       </div>
+       <div>
+        <p class="text-gray-400 text-sm">
+         Онлайн пользователей
+        </p>
+        <p class="text-white text-2xl font-semibold">
+         1,234
+        </p>
+       </div>
+      </div>
+      <div class="bg-[#2A2A3B] rounded-[8px] p-6 shadow-md flex items-center space-x-4 hover:shadow-lg transition-shadow duration-300 cursor-pointer" data-page="profiles">
+       <div class="bg-[#6C5DD3] p-3 rounded-lg flex items-center justify-center text-white">
+        <i class="fas fa-user-check fa-2x">
+        </i>
+       </div>
+       <div>
+        <p class="text-gray-400 text-sm">
+         Активные профили
+        </p>
+        <p class="text-white text-2xl font-semibold">
+         8,765
+        </p>
+       </div>
+      </div>
+      <div class="bg-[#2A2A3B] rounded-[8px] p-6 shadow-md flex items-center space-x-4 hover:shadow-lg transition-shadow duration-300 cursor-pointer" data-page="mailing">
+       <div class="bg-[#6C5DD3] p-3 rounded-lg flex items-center justify-center text-white">
+        <i class="fas fa-envelope-open-text fa-2x">
+        </i>
+       </div>
+       <div>
+        <p class="text-gray-400 text-sm">
+         Отправленные письма
+        </p>
+        <p class="text-white text-2xl font-semibold">
+         23,456
+        </p>
+       </div>
+      </div>
+     </div>
+     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="bg-[#2A2A3B] rounded-[8px] p-6 shadow-md hover:shadow-lg transition-shadow duration-300 lg:col-span-2">
+       <h3 class="text-white font-semibold mb-4">
+        Линейный график активности
+       </h3>
+       <svg aria-label="Линейный график активности с фиолетовым градиентом" class="w-full h-40" fill="none" viewbox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+         <lineargradient id="gradient2" x1="0" x2="0" y1="0" y2="1">
+          <stop stop-color="#6C5DD3" stop-opacity="0.7">
+          </stop>
+          <stop offset="100%" stop-color="#6C5DD3" stop-opacity="0">
+          </stop>
+         </lineargradient>
+        </defs>
+        <path d="M0 130 L40 110 L80 120 L120 100 L160 110 L200 90 L240 100 L280 80 L320 90 L360 70 L400 80" fill="url(#gradient2)" fill-opacity="0.3" stroke="#6C5DD3" stroke-width="3">
+        </path>
+        <path d="M0 130 L40 110 L80 120 L120 100 L160 110 L200 90 L240 100 L280 80 L320 90 L360 70 L400 80" fill="none" stroke="#6C5DD3" stroke-width="3">
+        </path>
+        <circle cx="40" cy="110" fill="#6C5DD3" r="4">
+        </circle>
+        <circle cx="120" cy="100" fill="#6C5DD3" r="4">
+        </circle>
+        <circle cx="200" cy="90" fill="#6C5DD3" r="4">
+        </circle>
+        <circle cx="280" cy="80" fill="#6C5DD3" r="4">
+        </circle>
+        <circle cx="360" cy="70" fill="#6C5DD3" r="4">
+        </circle>
+       </svg>
+      </div>
+      <div
+        class="overflow-auto bg-[#2A2A3B] rounded-[8px] p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+        <h3 class="text-white font-semibold mb-4">Новые регистрации</h3>
+        <table class="w-full min-w-full divide-y divide-gray-700">
+          <thead class="bg-[#2A2A3B] sticky top-0">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none">Имя
+                Фамилия</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none">
+                Email</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider select-none">
+                Дата регистрации</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-[#1E1E2D]">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-white truncate">Алексей Смирнов</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400 truncate">alexey.smirnov@example.com</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">2024-06-10</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+     </div>
+     <div class="bg-[#2A2A3B] rounded-[8px] p-6 shadow-md hover:shadow-lg transition-shadow duration-300 max-w-md">
+      <h3 class="text-white font-semibold mb-4">
+       Топ активных пользователей
+      </h3>
+      <ul class="divide-y divide-gray-700">
+       <li class="py-3 flex items-center space-x-4">
+        <img alt="Аватар пользователя Алексей Смирнов, синие и фиолетовые оттенки, буква A" class="rounded-full" height="40" src="https://storage.googleapis.com/a1aa/image/b29bd5cd-3c1e-4e4c-1c20-532483dd7cef.jpg" width="40"/>
+        <div class="flex-1 min-w-0">
+         <p class="text-white font-semibold truncate">
+          Алексей Смирнов
+         </p>
+         <p class="text-gray-400 text-sm truncate">
+          alexey.smirnov@example.com
+         </p>
+        </div>
+        <span class="text-[#6C5DD3] font-semibold">
+         150 активностей
+        </span>
+       </li>
+      </ul>
+     </div>
+    </section>
+   </main>
+  </div>
+  <script>
+   // Sidebar toggle for small screens (optional)
+    const sidebar = document.querySelector('aside');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    sidebarToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('-translate-x-full');
+    });
+
+    // Page navigation
+    const buttons = document.querySelectorAll('aside nav button');
+    const pages = document.querySelectorAll('main > section');
+    const pageTitle = document.getElementById('pageTitle');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const page = btn.getAttribute('data-page');
+        pages.forEach((section) => {
+          if (section.id === page) {
+            section.classList.remove('hidden');
+          } else {
+            section.classList.add('hidden');
+          }
+        });
+        pageTitle.textContent = btn.textContent.trim();
+      });
+    });
+
+    // Mailing template insertion
+    const mailTemplateSelect = document.getElementById('mailTemplate');
+    const mailHtmlTextarea = document.getElementById('mailHtml');
+    mailTemplateSelect.addEventListener('change', () => {
+      mailHtmlTextarea.value = mailTemplateSelect.value;
+    });
+
+    // Initialize mailing textarea with first template
+    mailHtmlTextarea.value = mailTemplateSelect.value;
+
+    // Toggle switch styling
+    const toggleCheckbox = document.querySelector('.toggle-checkbox');
+    const toggleLabel = document.querySelector('.toggle-label');
+    toggleCheckbox.addEventListener('change', () => {
+      if (toggleCheckbox.checked) {
+        toggleLabel.classList.add('bg-[#6C5DD3]');
+      } else {
+        toggleLabel.classList.remove('bg-[#6C5DD3]');
+      }
+    });
+  </script>
+ </body>
+</html>
