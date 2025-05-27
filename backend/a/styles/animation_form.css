@@ -26,6 +26,7 @@
     opacity: 100%;
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.9, 0.18, 0.06, 0.94);
+    margin: 15vmin 0px 0vmin 0px ;
 }
 
 #afrorize_form {
@@ -33,6 +34,7 @@
     opacity: 100%;
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.9, 0.18, 0.06, 0.94);
+    margin: 15vmin 0px 0vmin 0px ;
 
 }
 
