@@ -6,6 +6,7 @@
     <title>ARM TIME Register</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap');
 
@@ -17,6 +18,8 @@
     <link rel="stylesheet" href="./styles/form.css">
     <link rel="stylesheet" href="./styles/animation_form.css">
     <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/cropper.css">
+    <link href="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.css" rel="stylesheet" />
 </head>
 
 <body class="bg-[#e2e2e2] min-h-screen flex flex-col items-center justify-center p-4">
@@ -26,35 +29,35 @@
         </h1>
 
         <div class="papa">
-            <form class="form visible" id="register_form">
+            <form class="form visible" id="register_form" method="POST">
                 <p class="title">Регистрация</p>
                 <p class="message">Войди, чтобы получить полный доступ.</p>
                 <div class="flex">
                     <label>
-                        <input required="" placeholder="" type="first_name" class="input" />
+                        <input required="" placeholder="" id="first_name" type="first_name" class="input" />
                         <span>Фамилия</span>
                     </label>
 
                     <label>
-                        <input required="" placeholder="" type="last_name" class="input" />
+                        <input required="" placeholder="" id="last_name" type="last_name" class="input" />
                         <span>Имя</span>
                     </label>
                 </div>
 
                 <label>
-                    <input required="" placeholder="" type="email" class="input" />
+                    <input required="" placeholder="" id="email" type="email" name="email" class="input" />
                     <span>Email</span>
                 </label>
 
                 <label>
-                    <input required="" placeholder="" type="password" class="input" />
+                    <input required="" placeholder="" id="pass1" type="password" name="password" class="input" />
                     <span>Пароль</span>
                 </label>
                 <label>
-                    <input required="" placeholder="" type="password" class="input" />
+                    <input required="" placeholder="" id="pass2" type="password" class="input" />
                     <span>Повтор пароля</span>
                 </label>
-                <button class="submit" onclick="go_recovery()">Регистрация</button>
+                <button class="submit" type="submit">Регистрация</button>
                 <p class="signin">Уже есть аккаунт ? <button onclick="visible()">Войти</button></p>
             </form>
 
@@ -64,15 +67,15 @@
                 <p class="title">Вход</p>
                 <p class="message">Войди, чтобы получить полный доступ.</p>
                 <label>
-                    <input required="" placeholder="" type="email" class="input" />
+                    <input required="" placeholder="" type="email" class="input" name="email" id="emailaft" />
                     <span>Email</span>
                 </label>
 
                 <label>
-                    <input required="" placeholder="" type="password" class="input" />
+                    <input required="" placeholder="" type="password" id="aft_pass" name="password" class="input" />
                     <span>Пароль</span>
                 </label>
-                <button class="submit" onclick="go_recovery()">Войти</button>
+                <button class="submit" type="submit">Войти</button>
                 <p class="signin">Ещё нет аккаунта ? <button onclick="visible()">Регистрация</button></p>
             </form>
         </div>
@@ -85,15 +88,15 @@
         </h1>
 
         <div class="papa">
-            <form class="form">
+            <form class="form" id="code_form">
 
                 <p class="title">Проверка входа!</p>
                 <p class="message">Код авторизации,<br>был отправлен <span>lazarukdanz@mail.ru</span>.</p>
                 <label>
-                    <input required="" placeholder="" type="password" class="input" />
+                    <input required="" placeholder="" id="code_INformes" type="code" class="input" />
                     <span>Секретный код</span>
                 </label>
-                <button class="submit" onclick="go_anketa()">Подтвердить</button>
+                <button class="submit" type="submit">Подтвердить</button>
                 <p class="signin">Нужна помощь? <button onclick="visible()">Напиши нам!</button></p>
             </form>
         </div>
@@ -104,37 +107,39 @@
             ARM T<span class="text-[#d30073]">I</span>ME
         </h1>
         <div class="papa2">
-            <form class="form" id="recovery_code">
+            <form class="form" id="main_form">
 
 
 
 
                 <p class="title">Анкета</p>
                 <div class="foto">
-                    <img src="https://i.pinimg.com/736x/4c/24/35/4c2435c4d7e5d249e3c54035462321dc.jpg" alt="">
-                    <div class="redact_foto">
+                    <img src="https://i.pinimg.com/736x/4c/24/35/4c2435c4d7e5d249e3c54035462321dc.jpg" alt=""
+                        name="User_Photo" id="User_Photo">
+                    <div class="redact_foto" onclick="loadPhoto()">
                         🖉
                     </div>
                 </div>
                 <p class="message_center">Основные данные</p>
-                <label>
-                    <input required="" placeholder="" type="email" class="input" />
-                    <span>Email</span>
+                <label disabled>
+                    <input required="" placeholder="" type="email" class="input" name="email" id="email_main"
+                        disabled />
+                    <span disabled>Email</span>
                 </label>
                 <div class="flex">
                     <label>
-                        <input required="" placeholder="" type="first_name" class="input" />
+                        <input required="" placeholder="" type="text" name="first_name" class="input" />
                         <span>Фамилия</span>
                     </label>
 
                     <label>
-                        <input required="" placeholder="" type="last_name" class="input" />
+                        <input required="" placeholder="" type="text" name="last_name" class="input" />
                         <span>Имя</span>
                     </label>
                 </div>
-                <p class="message">Баннер в профиле:</p>
-                <input required="" placeholder="" type="file" class="input" />
-                
+                <p class="message">Баннер в профиле <span>(по желанию)</span>:</p>
+                <input placeholder="" type="file" class="input" name="banner" />
+
 
 
 
@@ -142,33 +147,106 @@
 
                 <p class="message_center">Силовые показатели</p>
                 <p class="message">Борьба: Крюк</p>
-                <label>
-                    <input required="" placeholder="" type="password" class="input" />
+                <label class="upr">
+                    <input required="" placeholder="" type="number" name="r1-u1-biceps" class="input" />
                     <span>Сгибание кисти (Ручка на лямках)</span>
+                    <div class="help_upr" >
+                        <div  onclick="visible_help('help_s_1')">
+                            ?
+                        </div>
+                    </div>
+                    <div class="help_img hide" id="help_s_1">
+                        <div>
+                            <img
+                                src="https://sun9-29.userapi.com/impg/el7vEogN1UpkRPy5fsVJgxK7-AhroLKMEJVbHQ/6kE7Oxb9dtY.jpg?size=1024x1024&quality=95&sign=1eef22d759ec7204bb391ae9ae26f995&type=album">
+                            <button onclick="close_help('help_s_1')">Закрыть пример</button>
+                        </div>
+                    </div>
                 </label>
-                <label>
-                    <input required="" placeholder="" type="password" class="input" />
+                <label class="upr">
+                    <input required="" placeholder="" type="number" name="r1-u2-bok" id="r1_u2_bok_main" class="input"
+                        oninput="bok(this.value)" />
                     <span>Боковое давление (Верхний блок)</span>
+                    <div class="help_upr">
+                        <div  onclick="visible_help('help_s_2')">
+                            ?
+                        </div>
+                    </div>
+                    <div class="help_img hide" id="help_s_2">
+                        <div>
+                            <img
+                                src="https://sun9-29.userapi.com/impg/el7vEogN1UpkRPy5fsVJgxK7-AhroLKMEJVbHQ/6kE7Oxb9dtY.jpg?size=1024x1024&quality=95&sign=1eef22d759ec7204bb391ae9ae26f995&type=album">
+                            <button onclick="close_help('help_s_2')">Закрыть пример</button>
+                        </div>
+                    </div>
                 </label>
-                <label>
-                    <input required="" placeholder="" type="password" class="input" />
+                <label class="upr">
+                    <input required="" placeholder="" type="number" name="r1-u3-kist" class="input" />
                     <span>Бицепс (Подъем на бицепс сидя)</span>
+                    <div class="help_upr">
+                        <div  onclick="visible_help('help_s_3')">
+                            ?
+                        </div>
+                    </div>
+                    <div class="help_img hide" id="help_s_3">
+                        <div>
+                            <img
+                                src="https://sun9-29.userapi.com/impg/el7vEogN1UpkRPy5fsVJgxK7-AhroLKMEJVbHQ/6kE7Oxb9dtY.jpg?size=1024x1024&quality=95&sign=1eef22d759ec7204bb391ae9ae26f995&type=album">
+                            <button onclick="close_help('help_s_3')">Закрыть пример</button>
+                        </div>
+                    </div>
                 </label>
 
 
 
                 <p class="message">Борьба: Верх </p>
-                <label>
-                    <input required="" placeholder="" type="password" class="input" />
+                <label class="upr">
+                    <input required="" placeholder="" type="number" name="r2-u1-luch" class="input" />
                     <span>Подъем на луч (90° с пола)</span>
+                    <div class="help_upr">
+                        <div  onclick="visible_help('help_s_4')">
+                            ?
+                        </div>
+                    </div>
+                    <div class="help_img hide" id="help_s_4">
+                        <div>
+                            <img
+                                src="https://sun9-29.userapi.com/impg/el7vEogN1UpkRPy5fsVJgxK7-AhroLKMEJVbHQ/6kE7Oxb9dtY.jpg?size=1024x1024&quality=95&sign=1eef22d759ec7204bb391ae9ae26f995&type=album">
+                            <button onclick="close_help('help_s_4')">Закрыть пример</button>
+                        </div>
+                    </div>
                 </label>
-                <label>
-                    <input required="" placeholder="" type="password" class="input" />
+                <label class="upr">
+                    <input required="" placeholder="" type="number" name="r2-u2-pronacion" class="input" />
                     <span>Пронация (90° с пола)</span>
+                    <div class="help_upr">
+                        <div  onclick="visible_help('help_s_5')">
+                            ?
+                        </div>
+                    </div>
+                    <div class="help_img hide" id="help_s_5">
+                        <div>
+                            <img
+                                src="https://sun9-29.userapi.com/impg/el7vEogN1UpkRPy5fsVJgxK7-AhroLKMEJVbHQ/6kE7Oxb9dtY.jpg?size=1024x1024&quality=95&sign=1eef22d759ec7204bb391ae9ae26f995&type=album">
+                            <button onclick="close_help('help_s_5')">Закрыть пример</button>
+                        </div>
+                    </div>
                 </label>
-                <label>
-                    <input required="" placeholder="" type="password" class="input" />
+                <label class="upr">
+                    <input required="" placeholder="" type="number" name="r2-u3-otvedenie" class="input" />
                     <span>Отведение (90° с пола)</span>
+                    <div class="help_upr">
+                        <div  onclick="visible_help('help_s_6')">
+                            ?
+                        </div>
+                    </div>
+                    <div class="help_img hide" id="help_s_6">
+                        <div>
+                            <img
+                                src="https://sun9-29.userapi.com/impg/el7vEogN1UpkRPy5fsVJgxK7-AhroLKMEJVbHQ/6kE7Oxb9dtY.jpg?size=1024x1024&quality=95&sign=1eef22d759ec7204bb391ae9ae26f995&type=album">
+                            <button onclick="close_help('help_s_6')">Закрыть пример</button>
+                        </div>
+                    </div>
                 </label>
 
 
@@ -176,13 +254,37 @@
 
 
                 <p class="message">Борьба: Трицепс </p>
-                <label>
-                    <input required="" placeholder="" type="password" class="input" />
+                <label class="upr">
+                    <input required="" placeholder="" type="number" name="r3-u1-triceps" class="input" />
                     <span>Трицепс (Верхний блок)</span>
+                    <div class="help_upr">
+                        <div  onclick="visible_help('help_s_7')">
+                            ?
+                        </div>
+                    </div>
+                    <div class="help_img hide" id="help_s_7">
+                        <div>
+                            <img
+                                src="https://sun9-29.userapi.com/impg/el7vEogN1UpkRPy5fsVJgxK7-AhroLKMEJVbHQ/6kE7Oxb9dtY.jpg?size=1024x1024&quality=95&sign=1eef22d759ec7204bb391ae9ae26f995&type=album">
+                            <button onclick="close_help('help_s_7')">Закрыть пример</button>
+                        </div>
+                    </div>
                 </label>
-                <label>
-                    <input required="" placeholder="" type="password" class="input" />
-                    <span>Боковое давление (Верхний блок)</span>
+                <label class="upr" disabled>
+                    <input required="" placeholder="" type="number" class="input" id="r1_u2_bok_dubl" />
+                    <span disabled>Боковое давление (Верхний блок)</span>
+                    <div class="help_upr">
+                        <div  onclick="visible_help('help_s_8')">
+                            ?
+                        </div>
+                    </div>
+                    <div class="help_img hide" id="help_s_8">
+                        <div>
+                            <img
+                                src="https://sun9-29.userapi.com/impg/el7vEogN1UpkRPy5fsVJgxK7-AhroLKMEJVbHQ/6kE7Oxb9dtY.jpg?size=1024x1024&quality=95&sign=1eef22d759ec7204bb391ae9ae26f995&type=album">
+                            <button onclick="close_help('help_s_8')">Закрыть пример</button>
+                        </div>
+                    </div>
                 </label>
 
 
@@ -193,30 +295,66 @@
 
                 <p class="message_center">Второстепенная информация</p>
                 <label>
-                    <input required="" placeholder="" type="password" class="input" />
+                    <input required="" placeholder="" type="text" name="vk_link" class="input" />
                     <span>@Вконтакте</span>
                 </label>
                 <label>
-                    <input required="" placeholder="" type="password" class="input" />
+                    <input required="" placeholder="" type="text" name="tg_link" class="input" />
                     <span>@Телеграмм</span>
                 </label>
-                <label>
-                    <input required="" placeholder="" type="password" class="input" />
-                    <span>Бицепс (Подъем на бицепс сидя)</span>
-                </label>
 
 
-                <label>
-                    <input required="" placeholder="" type="password" class="input" />
-                    <span>Повтор пароля</span>
-                </label>
-                <button class="submit" onclick="go_main()">Загрузить Анкету</button>
+
+
+
+
+
+
+                <!--Скрытые элементы формы.-->
+                <div style="display: none;">
+                    <label>
+                        <input type="text" class="input" id="User_Photo_dubl" name="user_photo" />
+                        <span>хешированая фотка.</span>
+                    </label>
+
+                    <label>
+                        <input type="text" class="input" id="email_dubl" name="email" />
+                        <span>емайл для отправки в форме.</span>
+                    </label>
+                </div>
+                <button class="submit" type="submit">Загрузить Анкету</button>
                 <p class="signin">Нужна помощь? <button onclick="visible()">Напиши нам!</button></p>
             </form>
         </div>
     </section>
+
+    <!--cropper_window_hide-->
+    <section id="cropper_window" class="cropper_window cropper_window_hide">
+        <div class="cropper_zone">
+            <div class="cropper_zone_back">
+
+            </div>
+            <input type="file" class="load_proto_inv" id="load_user_photo" accept="image/*" />
+            <img id="image" class="crop_img" />
+        </div>
+        <button class="crop_button" id="crop_button">Обрезать</button>
+    </section>
+
+
+
+
+
+    <script src="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.js"></script>
+
+
     <script src="./scripts/anim.js"></script>
     <script src="./scripts/form_round.js"></script>
+    <script src="./scripts/register.js"></script>
+    <script src="./scripts/aftorization.js"></script>
+    <script src="./scripts/code.js"></script>
+    <script src="./scripts/cropper.js"></script>
+    <script src="./scripts/main_anketa.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 
 </html>

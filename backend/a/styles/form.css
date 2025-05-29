@@ -54,11 +54,22 @@
 .message span,
 .message_center span{
     color: #d30073;
+    user-select: none;
 }
 .message_center{
     font-size: 16.5px;
     color: #333;
     text-align: center;
+}
+*:disabled:hover {
+    cursor: not-allowed !important;
+}
+*:disabled {
+    cursor: not-allowed !important;
+}
+*[disabled] {
+    cursor: not-allowed !important;
+    user-select: none;
 }
 
 .signin {
@@ -101,6 +112,7 @@
     font-size: 0.9em;
     cursor: text;
     transition: 0.3s ease;
+    user-select: none;
 }
 
 .form label .input:placeholder-shown+span {
@@ -150,4 +162,95 @@
 }
 .hf{
     display: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+#main_form .upr .input {
+    width: 90% !important;
+}
+.help_upr{
+    position: absolute;
+    width: 10%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background-color: rgba(0, 0, 139, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.help_upr div{
+    width: 65%;
+    aspect-ratio: 1 / 1;
+    background-color: #d3007400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0.4vmin solid #333;
+    border-radius: 10000px;
+    font-weight: bold;
+    user-select: none;
+
+}
+.help_upr div:hover {
+    background-color: #333;
+    color: #d30073;
+    border: 0.4vmin solid #d30073;
+    cursor: pointer;
+
+}
+
+
+
+.help_img {
+    height: 100% !important;
+    width: 100%;
+    background-color: #000000c7;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    object-fit: contain;
+    overflow: visible;
+    z-index: 100000;
+    
+}
+.help_img div  {
+    width: 80vmin;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+
+}
+.help_img div button {
+    background-color: rgba(203, 244, 188, 0.977);
+    border-radius: 2vh;
+    padding: 1vmin 2vmin;
+    margin: 6vmin;
+    width: 35vmin;
+
 }

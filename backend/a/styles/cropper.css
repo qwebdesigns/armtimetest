@@ -1,0 +1,190 @@
+.load_proto_inv {
+    background-color: rgb(225, 225, 226);
+    position: absolute;
+    display: none;
+}
+
+
+.cropper_window {
+    z-index: 1000000000;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.693);
+    display: flex;
+    flex-direction: column;
+
+}
+
+.image_container {
+    background-color: rgba(0, 255, 255, 0);
+}
+
+.image_container div {
+    background-color: #0000ff00;
+}
+
+.crop_button {
+    background-color: rgba(203, 244, 188, 0.977);
+    border-radius: 2vh;
+    padding: 1vmin 2vmin ;
+    margin: 6vmin;
+    width: 35vmin;
+}
+
+.crop_button:hover {
+    background-color: rgba(137, 243, 99, 0.977);
+}
+
+.crop_img {
+    height: 100%;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: aliceblue;
+}
+
+.cropper_window_hide {
+    display: none !important;
+}
+
+.cropper_zone {
+    background-color: rgb(255, 0, 0);
+    border-radius: 3vh;
+    overflow: hidden;
+    width: 70vmin;
+    height: 70vmin;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cropper_zone_back {
+    background-color: aqua;
+    width: 72vmin;
+    height: 72vmin;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4vh;
+    overflow: hidden;
+
+}
+
+.cropper_zone_back::before {
+    content: " ";
+    width: calc(150%);
+    height: calc(150%);
+    position: absolute;
+    border-radius: 4vh;
+    animation: rotate_back_crop 3s linear infinite 0s;
+
+    background: conic-gradient(from 0deg at 50% 50%, #FFFFFFFF 30%, #d30073 50%, #FFFFFFFF 51%, #FFFFFFFF 80%, #d30073 99%, #FFFFFFFF 100%);
+
+    border-radius: 1000vw;
+}
+
+.cropper_zone_back::after {
+    content: " ";
+    width: 70vmin;
+    height: 70vmin;
+    position: absolute;
+    border-radius: 3vh;
+    background-color: white;
+
+}
+
+@keyframes rotate_back_crop {
+    0% {
+        transform: rotateZ(0deg);
+    }
+
+    6.25% {
+        transform: rotateZ(30deg);
+    }
+
+    12.5% {
+        transform: rotateZ(45deg);
+    }
+
+    /* угол */
+    18.75% {
+        transform: rotateZ(60deg);
+    }
+
+    25% {
+        transform: rotateZ(90deg);
+    }
+
+    /* угол */
+    31.25% {
+        transform: rotateZ(120deg);
+    }
+
+    37.5% {
+        transform: rotateZ(135deg);
+    }
+
+    /* угол */
+    43.75% {
+        transform: rotateZ(150deg);
+    }
+
+    50% {
+        transform: rotateZ(180deg);
+    }
+
+    /* угол */
+    56.25% {
+        transform: rotateZ(210deg);
+    }
+
+    62.5% {
+        transform: rotateZ(225deg);
+    }
+
+    /* угол */
+    68.75% {
+        transform: rotateZ(240deg);
+    }
+
+    75% {
+        transform: rotateZ(270deg);
+    }
+
+    /* угол */
+    81.25% {
+        transform: rotateZ(300deg);
+    }
+
+    87.5% {
+        transform: rotateZ(315deg);
+    }
+
+    /* угол */
+    93.75% {
+        transform: rotateZ(330deg);
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+    }
+
+    /* стык с 0% */
+}
+.cropper-line {
+    background-color: #d30073 !important;
+}
+.cropper-crop-box {
+    border: 0.5vmin solid #d30073 !important;
+    /* Цвет, который тебе нужен */
+}
+.cropper-view-box {
+    outline: none !important;
+}
+.cropper-point{
+    background-color: white !important;
+    transform: scale(1.7);
+}

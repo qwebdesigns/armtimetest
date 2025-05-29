@@ -68,5 +68,6 @@ section{
     color: white;
     opacity: 0;
     transition: opacity 0.2s ease-in;
+    z-index: 100;
 }
 .redact_foto:hover{opacity: 1; cursor: pointer;}
